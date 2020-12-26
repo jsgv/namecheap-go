@@ -8,10 +8,14 @@ import (
 )
 
 func printResults(v interface{}) {
-	b, err := json.MarshalIndent(v, "", "\t")
+	// b, err := json.Marshal(v)
+	b, err := json.MarshalIndent(v, "", "    ")
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println(string(pretty.Color(b, nil)))
+	fmt.Fprintln(
+		rootCmd.OutOrStdout(),
+		string(pretty.Color(b, nil)),
+	)
 }
