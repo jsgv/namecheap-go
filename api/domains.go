@@ -4,9 +4,9 @@ import (
 	"encoding/xml"
 )
 
-// DomainsGetListResultResponse represents the response
+// DomainsGetListResponse represents the response
 // for the `namecheap.domains.getList` method.
-type DomainsGetListResultResponse struct {
+type DomainsGetListResponse struct {
 	ApiResponse
 	CommandResponse struct {
 		XMLName             xml.Name `xml:"CommandResponse" json:"-"`
@@ -48,30 +48,83 @@ type DomainsGetListOptions struct {
 }
 
 // DomainsGetList returns a list of domains for the particular user.
-func (c *Client) DomainsGetList(opts DomainsGetListOptions) *DomainsGetListResultResponse {
-	r := &DomainsGetListResultResponse{}
+func (c *Client) DomainsGetList(opts DomainsGetListOptions) *DomainsGetListResponse {
+	r := &DomainsGetListResponse{}
 	c.Do("namecheap.domains.getList", opts, r)
 	return r
 }
 
-// DomainsDnsSetCustomResponse represents the response
-// for the `namecheap.domains.dns.setCustom` method.
-type DomainsDnsSetCustomResponse struct {
+type ContactInfo struct {
+	OrganizationName    string `xml:"OrganizationName"`
+	JobTitle            string `xml:"JobTitle"`
+	FirstName           string `xml:"FirstName"`
+	LastName            string `xml:"LastName"`
+	Address1            string `xml:"Address1"`
+	Address2            string `xml:"Address2"`
+	City                string `xml:"City"`
+	StateProvince       string `xml:"StateProvince"`
+	StateProvinceChoice string `xml:"StateProvinceChoice"`
+	PostalCode          string `xml:"PostalCode"`
+	Country             string `xml:"Country"`
+	Phone               string `xml:"Phone"`
+	Fax                 string `xml:"Fax"`
+	EmailAddress        string `xml:"EmailAddress"`
+	PhoneExt            string `xml:"PhoneExt"`
+	FaxExt              string `xml:"FaxExt"`
+}
+
+type ContactList struct {
+	Registrant struct {
+		XMLName  xml.Name `xml:"Registrant" json:"-"`
+		ReadOnly bool     `xml:"ReadOnly,attr"`
+		ContactInfo
+	}
+	Tech struct {
+		XMLName  xml.Name `xml:"Tech" json:"-"`
+		ReadOnly bool     `xml:"ReadOnly,attr"`
+		ContactInfo
+	}
+	Admin struct {
+		XMLName  xml.Name `xml:"Admin" json:"-"`
+		ReadOnly bool     `xml:"ReadOnly,attr"`
+		ContactInfo
+	}
+	AuxBilling struct {
+		XMLName  xml.Name `xml:"AuxBilling" json:"-"`
+		ReadOnly bool     `xml:"ReadOnly,attr"`
+		ContactInfo
+	}
+}
+
+type DomainsGetContactsResponse struct {
 	ApiResponse
+	CommandResponse struct {
+		XMLName              xml.Name `xml:"CommandResponse" json:"-"`
+		Type                 string   `xml:"Type,attr"`
+		DomainContactsResult struct {
+			XMLName      xml.Name `xml:"DomainContactsResult" json:"-"`
+			Domain       string   `xml:"Domain,attr"`
+			Domainnameid string   `xml:"domainnameid,attr"`
+			ContactList
+			// CurrentAttributes // TODO
+			WhoisGuardContact struct {
+				XMLName xml.Name `xml:"WhoisGuardContact" json:"-"`
+				ContactList
+			}
+		}
+	}
 }
 
-// DomainsDnsSetCustomOptions represents the options
-// for the `namecheap.domains.getList` method.
-type DomainsDnsSetCustomOptions struct {
-	SLD         string
-	TLD         string
-	Nameservers string
+// DomainsGetContactsOptions represents the options
+// for the `namecheap.domains.getContacts` method.
+type DomainsGetContactsOptions struct {
+	DomainName string
 }
 
-// DomainsDnsSetCustom sets domain to use custom DNS servers.
-func (c *Client) DomainsDnsSetCustom(opts DomainsDnsSetCustomOptions) *DomainsDnsSetCustomResponse {
-	r := &DomainsDnsSetCustomResponse{}
-	c.Do("namecheap.domains.dns.setCustom", opts, r)
+// DomainsGetContacts returns contact information for the requested domain.
+func (c *Client) DomainsGetContacts(opts DomainsGetContactsOptions) *DomainsGetContactsResponse {
+	r := &DomainsGetContactsResponse{}
+	c.Do("namecheap.domains.getContacts", opts, r)
 	return r
 }
 
