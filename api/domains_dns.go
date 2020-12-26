@@ -17,6 +17,6 @@ type DomainsDnsSetCustomOptions struct {
 // DomainsDnsSetCustom sets domain to use custom DNS servers.
 func (c *Client) DomainsDnsSetCustom(opts DomainsDnsSetCustomOptions) *DomainsDnsSetCustomResponse {
 	r := &DomainsDnsSetCustomResponse{}
-	c.Do("namecheap.domains.dns.setCustom", opts, r)
+	c.do("namecheap.domains.dns.setCustom", opts, r)
 	return r
 }

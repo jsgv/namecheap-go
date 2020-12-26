@@ -50,7 +50,7 @@ type DomainsGetListOptions struct {
 // DomainsGetList returns a list of domains for the particular user.
 func (c *Client) DomainsGetList(opts DomainsGetListOptions) *DomainsGetListResponse {
 	r := &DomainsGetListResponse{}
-	c.Do("namecheap.domains.getList", opts, r)
+	c.do("namecheap.domains.getList", opts, r)
 	return r
 }
 
@@ -126,7 +126,7 @@ type DomainsGetContactsOptions struct {
 // DomainsGetContacts returns contact information for the requested domain.
 func (c *Client) DomainsGetContacts(opts DomainsGetContactsOptions) *DomainsGetContactsResponse {
 	r := &DomainsGetContactsResponse{}
-	c.Do("namecheap.domains.getContacts", opts, r)
+	c.do("namecheap.domains.getContacts", opts, r)
 	return r
 }
 
@@ -189,7 +189,7 @@ type DomainsGetTldListResponse struct {
 func (c *Client) DomainsGetTldList() *DomainsGetTldListResponse {
 	var opts interface{}
 	r := &DomainsGetTldListResponse{}
-	c.Do("namecheap.domains.getTldList", opts, r)
+	c.do("namecheap.domains.getTldList", opts, r)
 	return r
 }
 
@@ -267,6 +267,6 @@ type DomainsGetInfoOptions struct {
 // DomainsGetInfo returns information about the requested domain.
 func (c *Client) DomainsGetInfo(opts DomainsGetInfoOptions) *DomainsGetInfoResponse {
 	r := &DomainsGetInfoResponse{}
-	c.Do("namecheap.domains.getInfo", opts, r)
+	c.do("namecheap.domains.getInfo", opts, r)
 	return r
 }

@@ -65,7 +65,7 @@ func (c *Client) prepareUrl(command string, opts interface{}) string {
 	return url
 }
 
-func (c *Client) Do(command string, opts interface{}, value interface{}) {
+func (c *Client) do(command string, opts interface{}, value interface{}) {
 	url := c.prepareUrl(command, opts)
 
 	resp, err := http.Get(url)
