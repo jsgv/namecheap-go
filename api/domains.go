@@ -96,6 +96,8 @@ type ContactList struct {
 	}
 }
 
+// DomainsGetContactsResponse represents the response
+// for the `namecheap.domains.getContacts` method.
 type DomainsGetContactsResponse struct {
 	ApiResponse
 	CommandResponse struct {
@@ -125,6 +127,69 @@ type DomainsGetContactsOptions struct {
 func (c *Client) DomainsGetContacts(opts DomainsGetContactsOptions) *DomainsGetContactsResponse {
 	r := &DomainsGetContactsResponse{}
 	c.Do("namecheap.domains.getContacts", opts, r)
+	return r
+}
+
+// DomainsGetTldListResponse represents the response
+// for the `namecheap.domains.getTldList` method.
+type DomainsGetTldListResponse struct {
+	ApiResponse
+	CommandResponse struct {
+		XMLName xml.Name `xml:"CommandResponse" json:"-"`
+		Type    string   `xml:"Type,attr"`
+		Tlds    struct {
+			XMLName xml.Name `xml:"Tlds" json:"-"`
+			Tld     []struct {
+				XMLName                       xml.Name `xml:"Tld" json:"-"`
+				Value                         string   `xml:",chardata"`
+				Name                          string   `xml:"Name,attr"`
+				NonRealTime                   bool     `xml:"NonRealTime,attr"`
+				MinRegisterYears              int      `xml:"MinRegisterYears,attr"`
+				MaxRegisterYears              int      `xml:"MaxRegisterYears,attr"`
+				MinRenewYears                 int      `xml:"MinRenewYears,attr"`
+				MaxRenewYears                 int      `xml:"MaxRenewYears,attr"`
+				RenewalMinDays                int      `xml:"RenewalMinDays,attr"`
+				RenewalMaxDays                int      `xml:"RenewalMaxDays,attr"`
+				ReactivateMaxDays             int      `xml:"ReactivateMaxDays,attr"`
+				MinTransferYears              int      `xml:"MinTransferYears,attr"`
+				MaxTransferYears              int      `xml:"MaxTransferYears,attr"`
+				IsApiRegisterable             bool     `xml:"IsApiRegisterable,attr"`
+				IsApiRenewable                bool     `xml:"IsApiRenewable,attr"`
+				IsApiTransferable             bool     `xml:"IsApiTransferable,attr"`
+				IsEppRequired                 bool     `xml:"IsEppRequired,attr"`
+				IsDisableModContact           bool     `xml:"IsDisableModContact,attr"`
+				IsDisableWGAllot              bool     `xml:"IsDisableWGAllot,attr"`
+				IsIncludeInExtendedSearchOnly bool     `xml:"IsIncludeInExtendedSearchOnly,attr"`
+				SequenceNumber                int      `xml:"SequenceNumber,attr"`
+				Type                          string   `xml:"Type,attr"`
+				SubType                       string   `xml:"SubType,attr"`
+				IsSupportsIDN                 bool     `xml:"IsSupportsIDN,attr"`
+				Category                      string   `xml:"Category,attr"`
+				SupportsRegistrarLock         bool     `xml:"SupportsRegistrarLock,attr"`
+				AddGracePeriodDays            int      `xml:"AddGracePeriodDays,attr"`
+				WhoisVerification             bool     `xml:"WhoisVerification,attr"`
+				ProviderApiDelete             bool     `xml:"ProviderApiDelete,attr"`
+				TldState                      string   `xml:"TldState,attr"`
+				SearchGroup                   string   `xml:"SearchGroup,attr"`
+				Registry                      string   `xml:"Registry,attr"`
+				Categories                    struct {
+					XMLName     xml.Name `xml:"Categories" json:"-"`
+					TldCategory struct {
+						XMLName        xml.Name `xml:"TldCategory" json:"-"`
+						Name           string   `xml:"Name,attr"`
+						SequenceNumber string   `xml:"SequenceNumber,attr"`
+					}
+				}
+			}
+		}
+	}
+}
+
+// DomainsGetTldList returns a list of TLDs
+func (c *Client) DomainsGetTldList() *DomainsGetTldListResponse {
+	var opts interface{}
+	r := &DomainsGetTldListResponse{}
+	c.Do("namecheap.domains.getTldList", opts, r)
 	return r
 }
 

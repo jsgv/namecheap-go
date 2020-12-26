@@ -14,6 +14,7 @@ func NewCmdDomains() *cobra.Command {
 	addCommand(cmd, NewCmdDomainsDns())
 	addCommand(cmd, NewCmdDomainsGetList())
 	addCommand(cmd, NewCmdDomainsGetContacts())
+	addCommand(cmd, NewCmdDomainsGetTldList())
 	addCommand(cmd, NewCmdDomainsGetInfo())
 
 	return cmd
@@ -55,6 +56,19 @@ func NewCmdDomainsGetContacts() *cobra.Command {
 	cmd.Flags().StringVar(&opts.DomainName, "domainname", "", "Domain to get contacts")
 
 	cmd.MarkFlagRequired("domainname")
+
+	return cmd
+}
+
+func NewCmdDomainsGetTldList() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "gettldlist",
+		Short: "Returns a list of TLDs",
+		Run: func(cmd *cobra.Command, args []string) {
+			r := apiClient.DomainsGetTldList()
+			printResults(r)
+		},
+	}
 
 	return cmd
 }

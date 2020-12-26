@@ -36,17 +36,18 @@ func (c *Client) prepareUrl(command string, opts interface{}) string {
 		command,
 	)
 
-	v := reflect.ValueOf(opts)
-	typeOfS := v.Type()
-
 	params := make(map[string]string)
 
-	for i := 0; i < v.NumField(); i++ {
-		value := v.Field(i).String()
-		name := typeOfS.Field(i).Name
+	v := reflect.ValueOf(opts)
+	if v.IsValid() {
+		typeOfS := v.Type()
+		for i := 0; i < v.NumField(); i++ {
+			value := v.Field(i).String()
+			name := typeOfS.Field(i).Name
 
-		if value != "" {
-			params[name] = value
+			if value != "" {
+				params[name] = value
+			}
 		}
 	}
 
