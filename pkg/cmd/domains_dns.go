@@ -22,7 +22,8 @@ func NewCmdDomainsDnsSetCustom() *cobra.Command {
 	opts := api.DomainsDnsSetCustomOptions{}
 
 	cmd := &cobra.Command{
-		Use: "setcustom",
+		Use:   "setcustom",
+		Short: "Sets domain to use custom DNS servers",
 		Run: func(cmd *cobra.Command, args []string) {
 			domainname := cmd.Flag("domainname").Value.String()
 			domainParts := strings.Split(domainname, ".")
@@ -36,7 +37,6 @@ func NewCmdDomainsDnsSetCustom() *cobra.Command {
 
 	cmd.Flags().String("domainname", "", "Domain name")
 	cmd.Flags().StringVar(&opts.Nameservers, "nameservers", "", "A comma-separated list of name servers to be associated with this domain")
-
 	cmd.MarkFlagRequired("domainname")
 	cmd.MarkFlagRequired("nameservers")
 

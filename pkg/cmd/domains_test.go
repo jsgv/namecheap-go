@@ -3,7 +3,24 @@ package cmd
 import (
 	"bytes"
 	"testing"
+
+	"github.com/spf13/cobra"
+	flag "github.com/spf13/pflag"
 )
+
+func isFlagRequired(f *flag.Flag) bool {
+	if f.Annotations == nil {
+		return false
+	}
+
+	for k, v := range f.Annotations {
+		if k == cobra.BashCompOneRequiredFlag && v[0] == "true" {
+			return true
+		}
+	}
+
+	return false
+}
 
 func TestNewCmdDomains(t *testing.T) {
 	cmd := NewCmdDomains()
@@ -25,39 +42,70 @@ func TestNewCmdDomains(t *testing.T) {
 func TestNewCmdDomainsGetList(t *testing.T) {
 	cmd := NewCmdDomainsGetList()
 
-	flags := cmd.Flags()
-
-	listtypeValue, err := flags.GetString("listtype")
-	if err != nil {
-		t.Error(err)
+	listtype := cmd.Flag("listtype")
+	if listtype == nil {
+		t.Error("Missing flag `listtype`")
 	}
-	if listtypeValue != "ALL" {
+	if listtype.Value.String() != "ALL" {
 		t.Error("Wrong default value set for `listtype`")
 	}
 
-	pageValue, err := flags.GetString("page")
-	if err != nil {
-		t.Error(err)
+	page := cmd.Flag("page")
+	if page == nil {
+		t.Error("Missing flag `page`")
 	}
-	if pageValue != "1" {
+	if page.Value.String() != "1" {
 		t.Error("Wrong default value set for `page`")
 	}
 
-	pagesizeValue, err := flags.GetString("pagesize")
-	if err != nil {
-		t.Error(err)
+	pagesize := cmd.Flag("pagesize")
+	if pagesize == nil {
+		t.Error("Missing flag `pagesize`")
 	}
-	if pagesizeValue != "20" {
+	if pagesize.Value.String() != "20" {
 		t.Error("Wrong default value set for `pagesize`")
 	}
 
-	searchtermFlag := flags.Lookup("searchterm")
-	if searchtermFlag == nil {
+	searchterm := cmd.Flag("searchterm")
+	if searchterm == nil {
 		t.Error("Missing flag `searchterm`")
 	}
 
-	sortbyFlag := flags.Lookup("sortby")
-	if sortbyFlag == nil {
+	sortby := cmd.Flag("sortby")
+	if sortby == nil {
 		t.Error("Missing flag `sortby`")
+	}
+}
+
+func TestNewCmdDomainsGetContacts(t *testing.T) {
+	cmd := NewCmdDomainsGetContacts()
+
+	domainname := cmd.Flag("domainname")
+	if domainname == nil {
+		t.Error("Missing flag `domainname`")
+	}
+	if !isFlagRequired(domainname) {
+		t.Error("Flag not marked as required `domainname`")
+	}
+}
+
+func TestNewCmdDomainsGetTldList(t *testing.T) {
+	cmd := NewCmdDomainsGetTldList()
+	if cmd == nil {
+		t.Error("Missing command `domains gettldlist`")
+	}
+}
+
+func TestNewCmdDomainsGetInfo(t *testing.T) {
+	cmd := NewCmdDomainsGetInfo()
+
+	domainname := cmd.Flag("domainname")
+	if !isFlagRequired(domainname) {
+		t.Error("Flag not marked as required `domainname`")
+	}
+
+	hostname := cmd.Flag("hostname")
+	if hostname == nil {
+		t.Error("Missing flag `hostname`")
 	}
 }

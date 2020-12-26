@@ -54,7 +54,6 @@ func NewCmdDomainsGetContacts() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&opts.DomainName, "domainname", "", "Domain to get contacts")
-
 	cmd.MarkFlagRequired("domainname")
 
 	return cmd
@@ -87,7 +86,6 @@ func NewCmdDomainsGetInfo() *cobra.Command {
 
 	cmd.Flags().StringVar(&opts.DomainName, "domainname", "", "Domain name for which domain information needs to be requested")
 	cmd.Flags().StringVar(&opts.HostName, "hostname", "", "Hosted domain name for which domain information needs to be requested")
-
 	cmd.MarkFlagRequired("domainname")
 
 	return cmd
