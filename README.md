@@ -55,7 +55,7 @@ clientIP: 127.0.0.1
     * [x] [domains.getList](https://www.namecheap.com/support/api/methods/domains/get-list/) 
     * [x] [domains.getContacts](https://www.namecheap.com/support/api/methods/domains/get-contacts/) 
     * [ ] [domains.create](https://www.namecheap.com/support/api/methods/domains/create/) 
-    * [ ] [domains.getTldList](https://www.namecheap.com/support/api/methods/domains/get-tld-list/) 
+    * [x] [domains.getTldList](https://www.namecheap.com/support/api/methods/domains/get-tld-list/) 
     * [ ] [domains.setContacts](https://www.namecheap.com/support/api/methods/domains/set-contacts/) 
     * [ ] [domains.check](https://www.namecheap.com/support/api/methods/domains/check/) 
     * [ ] [domains.reactivate](https://www.namecheap.com/support/api/methods/domains/reactivate/) 
