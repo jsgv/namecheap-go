@@ -10,6 +10,7 @@ import (
 var (
 	rootCmd   = newRootCmd()
 	apiClient *api.Client
+	version   = "v0.0.1"
 )
 
 func init() {
@@ -41,6 +42,7 @@ func init() {
 	)
 
 	rootCmd.AddCommand(NewCmdDomains())
+	rootCmd.AddCommand(NewCmdVersion())
 }
 
 func newRootCmd() *cobra.Command {

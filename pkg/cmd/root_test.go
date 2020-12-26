@@ -1,11 +1,17 @@
 package cmd
 
-import "testing"
+import (
+	"bytes"
+	"testing"
+)
 
 func TestRootCmd(t *testing.T) {
-	rootCmd := newRootCmd()
+	cmd := newRootCmd()
 
-	if err := rootCmd.Execute(); err != nil {
+	b := bytes.NewBufferString("")
+	cmd.SetOut(b)
+
+	if err := cmd.Execute(); err != nil {
 		t.Error(err)
 	}
 }
