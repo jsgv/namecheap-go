@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"reflect"
+	"strconv"
 )
 
 type Client struct {
@@ -26,7 +28,7 @@ func NewClient(baseUrl, apiKey, apiUser, clientIP string) *Client {
 }
 
 func (c *Client) prepareUrl(command string, opts interface{}) string {
-	url := fmt.Sprintf(
+	u := fmt.Sprintf(
 		"%s?ApiKey=%s&ApiUser=%s&UserName=%s&ClientIp=%s&Command=%s",
 		c.baseUrl,
 		c.apiKey,
@@ -41,42 +43,57 @@ func (c *Client) prepareUrl(command string, opts interface{}) string {
 	v := reflect.ValueOf(opts)
 	if v.IsValid() {
 		typeOfS := v.Type()
+
 		for i := 0; i < v.NumField(); i++ {
-			value := v.Field(i).String()
 			name := typeOfS.Field(i).Name
 
-			if value != "" {
-				params[name] = value
+			switch typeOfS.Field(i).Type.Kind() {
+			case reflect.Bool:
+				value := v.Field(i).Bool()
+				params[name] = strconv.FormatBool(value)
+				break
+			case reflect.String:
+				value := v.Field(i).String()
+				if value != "" {
+					params[name] = url.QueryEscape(value)
+				}
+				break
+			case reflect.Int:
+				value := v.Field(i).Int()
+				params[name] = fmt.Sprintf("%d", value)
+				break
 			}
 		}
 	}
 
 	if params != nil {
 		for k, v := range params {
-			url = fmt.Sprintf(
+			u = fmt.Sprintf(
 				"%s&%s=%s",
-				url,
+				u,
 				k,
 				v,
 			)
 		}
 	}
 
-	return url
+	return u
 }
 
-func (c *Client) do(command string, opts interface{}, value interface{}) {
+func (c *Client) do(command string, opts interface{}, value interface{}) error {
 	url := c.prepareUrl(command, opts)
 
 	resp, err := http.Get(url)
+
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
+
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
 
-	xml.Unmarshal(body, &value)
+	return xml.Unmarshal(body, &value)
 }

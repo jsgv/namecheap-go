@@ -23,14 +23,14 @@ func isFlagRequired(f *flag.Flag) bool {
 }
 
 func TestNewCmdDomains(t *testing.T) {
-	cmd := NewCmdDomains()
+	cmd := newCmdDomains()
 
 	b := bytes.NewBufferString("")
 	cmd.SetOut(b)
 
 	childCommands := cmd.Commands()
 
-	if len(childCommands) != 5 {
+	if len(childCommands) != 12 {
 		t.Error("Wrong number of child commands for `domains`")
 	}
 
@@ -40,7 +40,7 @@ func TestNewCmdDomains(t *testing.T) {
 }
 
 func TestNewCmdDomainsGetList(t *testing.T) {
-	cmd := NewCmdDomainsGetList()
+	cmd := newCmdDomainsGetList()
 
 	listtype := cmd.Flag("listtype")
 	if listtype == nil {
@@ -78,7 +78,7 @@ func TestNewCmdDomainsGetList(t *testing.T) {
 }
 
 func TestNewCmdDomainsGetContacts(t *testing.T) {
-	cmd := NewCmdDomainsGetContacts()
+	cmd := newCmdDomainsGetContacts()
 
 	domainname := cmd.Flag("domainname")
 	if domainname == nil {
@@ -89,15 +89,50 @@ func TestNewCmdDomainsGetContacts(t *testing.T) {
 	}
 }
 
+func TestNewCmdDomainsCreate(t *testing.T) {
+	newCmdDomainsCreate()
+}
+
 func TestNewCmdDomainsGetTldList(t *testing.T) {
-	cmd := NewCmdDomainsGetTldList()
+	cmd := newCmdDomainsGetTldList()
+
 	if cmd == nil {
 		t.Error("Missing command `domains gettldlist`")
 	}
 }
 
+func TestNewCmdDomainsCheck(t *testing.T) {
+	cmd := newCmdDomainsCheck()
+
+	domainlist := cmd.Flag("domainlist")
+	if !isFlagRequired(domainlist) {
+		t.Error("Flag not markes as required `domainlist`")
+	}
+}
+
+func TestNewCmdDomainsReactivate(t *testing.T) {
+	newCmdDomainsReactivate()
+}
+
+func TestNewCmdDomainsRenew(t *testing.T) {
+	newCmdDomainsRenew()
+}
+
+func TestNewCmdDomainsGetRegistrarLock(t *testing.T) {
+	cmd := newCmdDomainsGetRegistrarLock()
+
+	domainname := cmd.Flag("domainname")
+	if !isFlagRequired(domainname) {
+		t.Error("Flag not markes as required `domainname`")
+	}
+}
+
+func TestNewCmdDomainsSetRegistrarLock(t *testing.T) {
+	newCmdDomainsSetRegistrarLock()
+}
+
 func TestNewCmdDomainsGetInfo(t *testing.T) {
-	cmd := NewCmdDomainsGetInfo()
+	cmd := newCmdDomainsGetInfo()
 
 	domainname := cmd.Flag("domainname")
 	if !isFlagRequired(domainname) {

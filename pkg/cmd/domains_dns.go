@@ -7,37 +7,45 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func NewCmdDomainsDns() *cobra.Command {
+func newCmdDomainsDns() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "dns",
 		Short: "Manage domains dns",
 	}
 
-	addCommand(cmd, NewCmdDomainsDnsSetCustom())
+	addCommand(cmd, newCmdDomainsDnsSetCustom())
 
 	return cmd
 }
 
-func NewCmdDomainsDnsSetCustom() *cobra.Command {
+func newCmdDomainsDnsSetCustom() *cobra.Command {
 	opts := api.DomainsDnsSetCustomOptions{}
+	var domainname string
 
 	cmd := &cobra.Command{
 		Use:   "setcustom",
 		Short: "Sets domain to use custom DNS servers",
-		Run: func(cmd *cobra.Command, args []string) {
-			domainname := cmd.Flag("domainname").Value.String()
+		RunE: func(cmd *cobra.Command, args []string) error {
 			domainParts := strings.Split(domainname, ".")
 
 			opts.SLD = domainParts[0]
 			opts.TLD = domainParts[1]
 
-			apiClient.DomainsDnsSetCustom(opts)
+			r, err := apiClient.DomainsDnsSetCustom(opts)
+			if err != nil {
+				return err
+			}
+
+			printResults(r)
+
+			return nil
 		},
 	}
 
-	cmd.Flags().String("domainname", "", "Domain name")
-	cmd.Flags().StringVar(&opts.Nameservers, "nameservers", "", "A comma-separated list of name servers to be associated with this domain")
+	cmd.Flags().StringVar(&domainname, "domainname", "", "Domain name")
 	cmd.MarkFlagRequired("domainname")
+
+	cmd.Flags().StringVar(&opts.Nameservers, "nameservers", "", "A comma-separated list of name servers to be associated with this domain")
 	cmd.MarkFlagRequired("nameservers")
 
 	return cmd

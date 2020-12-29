@@ -7,20 +7,25 @@ import (
 type ApiResponse struct {
 	XMLName           xml.Name `xml:"ApiResponse" json:"-"`
 	Status            string   `xml:"Status,attr"`
+	Xmlns             string   `xml:"xmlns,attr"`
 	RequestedCommand  string   `xml:"RequestedCommand"`
 	Server            string   `xml:"Server"`
 	GMTTimeDifference string   `xml:"GMTTimeDifference"`
 	ExecutionTime     string   `xml:"ExecutionTime"`
 	Errors            struct {
 		XMLName xml.Name `xml:"Errors" json:"-"`
-		Error   []struct {
+		Error   struct {
 			XMLName xml.Name `xml:"Error" json:"-"`
-			Number  string   `xml:"Number,attr"`
-			Error   string   `xml:",chardata"`
+			Number  int      `xml:"Number,attr" json:",omitempty"`
+			Error   string   `xml:",chardata" json:",omitempty"`
 		}
 	}
-	// TODO
-	// Warnings struct {
-	// 	XMLName xml.Name `xml:"Warnings" json:"-"`
-	// }
+	Warnings struct {
+		XMLName xml.Name `xml:"Warnings" json:"-"`
+		Warning struct {
+			XMLName xml.Name `xml:"Warning" json:"-"`
+			Number  int      `xml:"Number,attr" json:",omitempty"`
+			Warning string   `xml:",chardata" json:",omitempty"`
+		}
+	}
 }

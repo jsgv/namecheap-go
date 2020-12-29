@@ -34,15 +34,29 @@ func init() {
 		}
 	})
 
-	apiClient = api.NewClient(
-		"https://api.namecheap.com/xml.response",
-		viper.GetString("apiKey"),
-		viper.GetString("apiUser"),
-		viper.GetString("clientIP"),
-	)
+	rootCmd.PersistentFlags().Bool("sandbox", false, "")
+	rootCmd.PersistentFlags().MarkHidden("sandbox")
 
-	rootCmd.AddCommand(NewCmdDomains())
-	rootCmd.AddCommand(NewCmdVersion())
+	cobra.OnInitialize(func() {
+		url := "https://api.namecheap.com/xml.response"
+
+		sandbox, err := rootCmd.PersistentFlags().GetBool("sandbox")
+		if err != nil {
+			panic(err)
+		} else if sandbox == true {
+			url = "https://api.sandbox.namecheap.com/xml.response"
+		}
+
+		apiClient = api.NewClient(
+			url,
+			viper.GetString("apiKey"),
+			viper.GetString("apiUser"),
+			viper.GetString("clientIP"),
+		)
+	})
+
+	rootCmd.AddCommand(newCmdDomains())
+	rootCmd.AddCommand(newCmdVersion())
 }
 
 func newRootCmd() *cobra.Command {

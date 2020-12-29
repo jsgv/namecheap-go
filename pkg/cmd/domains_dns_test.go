@@ -6,7 +6,7 @@ import (
 )
 
 func TestNewCmdDomainsDns(t *testing.T) {
-	cmd := NewCmdDomainsDns()
+	cmd := newCmdDomainsDns()
 
 	b := bytes.NewBufferString("")
 	cmd.SetOut(b)
@@ -23,7 +23,7 @@ func TestNewCmdDomainsDns(t *testing.T) {
 }
 
 func TestNewCmdDomainsDnsSetCustom(t *testing.T) {
-	cmd := NewCmdDomainsDnsSetCustom()
+	cmd := newCmdDomainsDnsSetCustom()
 
 	domainname := cmd.Flag("domainname")
 	if !isFlagRequired(domainname) {
