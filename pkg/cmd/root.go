@@ -14,6 +14,7 @@ var (
 )
 
 func init() {
+	var err error
 	initConfig()
 
 	persistentFlags := map[string]string{
@@ -24,18 +25,31 @@ func init() {
 
 	for k, v := range persistentFlags {
 		rootCmd.PersistentFlags().String(k, "", v)
-		rootCmd.MarkPersistentFlagRequired(k)
-		viper.BindPFlag(k, rootCmd.PersistentFlags().Lookup(k))
+		err = rootCmd.MarkPersistentFlagRequired(k)
+		if err != nil {
+			panic(err)
+		}
+
+		err = viper.BindPFlag(k, rootCmd.PersistentFlags().Lookup(k))
+		if err != nil {
+			panic(err)
+		}
 	}
 
 	rootCmd.PersistentFlags().VisitAll(func(f *pflag.Flag) {
 		if viper.IsSet(f.Name) && viper.GetString(f.Name) != "" {
-			rootCmd.PersistentFlags().Set(f.Name, viper.GetString(f.Name))
+			err = rootCmd.PersistentFlags().Set(f.Name, viper.GetString(f.Name))
+			if err != nil {
+				panic(err)
+			}
 		}
 	})
 
 	rootCmd.PersistentFlags().Bool("sandbox", false, "")
-	rootCmd.PersistentFlags().MarkHidden("sandbox")
+	err = rootCmd.PersistentFlags().MarkHidden("sandbox")
+	if err != nil {
+		panic(err)
+	}
 
 	cobra.OnInitialize(func() {
 		url := "https://api.namecheap.com/xml.response"
@@ -43,7 +57,7 @@ func init() {
 		sandbox, err := rootCmd.PersistentFlags().GetBool("sandbox")
 		if err != nil {
 			panic(err)
-		} else if sandbox == true {
+		} else if sandbox {
 			url = "https://api.sandbox.namecheap.com/xml.response"
 		}
 
@@ -77,10 +91,15 @@ func initConfig() {
 	}
 }
 
-func addCommand(parent *cobra.Command, child *cobra.Command) {
-	parent.AddCommand(child)
+func addCommand(parent *cobra.Command, fn func() (*cobra.Command, error)) {
+	cmd, err := fn()
+	if err != nil {
+		panic(err)
+	}
+
+	parent.AddCommand(cmd)
 }
 
 func Execute() {
-	rootCmd.Execute()
+	_ = rootCmd.Execute()
 }

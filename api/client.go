@@ -38,43 +38,44 @@ func (c *Client) prepareUrl(command string, opts interface{}) string {
 		command,
 	)
 
-	params := make(map[string]string)
+	params := make(map[string]interface{})
 
-	v := reflect.ValueOf(opts)
-	if v.IsValid() {
-		typeOfS := v.Type()
+	v, isMap := opts.(map[string]interface{})
+	if isMap {
+		params = v
+	} else {
+		v := reflect.ValueOf(opts)
 
-		for i := 0; i < v.NumField(); i++ {
-			name := typeOfS.Field(i).Name
+		if v.IsValid() {
+			typeOfS := v.Type()
 
-			switch typeOfS.Field(i).Type.Kind() {
-			case reflect.Bool:
-				value := v.Field(i).Bool()
-				params[name] = strconv.FormatBool(value)
-				break
-			case reflect.String:
-				value := v.Field(i).String()
-				if value != "" {
-					params[name] = url.QueryEscape(value)
+			for i := 0; i < v.NumField(); i++ {
+				name := typeOfS.Field(i).Name
+
+				switch typeOfS.Field(i).Type.Kind() {
+				case reflect.Bool:
+					value := v.Field(i).Bool()
+					params[name] = strconv.FormatBool(value)
+				case reflect.String:
+					value := v.Field(i).String()
+					if value != "" {
+						params[name] = url.QueryEscape(value)
+					}
+				case reflect.Int:
+					value := v.Field(i).Int()
+					params[name] = fmt.Sprintf("%d", value)
 				}
-				break
-			case reflect.Int:
-				value := v.Field(i).Int()
-				params[name] = fmt.Sprintf("%d", value)
-				break
 			}
 		}
 	}
 
-	if params != nil {
-		for k, v := range params {
-			u = fmt.Sprintf(
-				"%s&%s=%s",
-				u,
-				k,
-				v,
-			)
-		}
+	for k, v := range params {
+		u = fmt.Sprintf(
+			"%s&%s=%s",
+			u,
+			k,
+			v,
+		)
 	}
 
 	return u

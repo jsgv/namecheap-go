@@ -1,0 +1,19 @@
+language: go
+
+env:
+  global:
+    - CACHE_NAME=${TRAVIS_ARCH}
+    - GO111MODULE=on
+    - GOPROXY=https://proxy.golang.org
+
+os:
+  - linux
+  - osx
+
+go:
+  - "1.15.1"
+
+cache:
+  directories:
+     - $HOME/gopath/pkg/mod
+     - $HOME/.cache/go-build

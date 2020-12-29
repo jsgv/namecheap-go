@@ -15,24 +15,24 @@ func newCmdDomains() *cobra.Command {
 		Short: "Manage domains",
 	}
 
-	addCommand(cmd, newCmdDomainsDns())
-	addCommand(cmd, newCmdDomainsGetList())
-	addCommand(cmd, newCmdDomainsGetContacts())
-	addCommand(cmd, newCmdDomainsCreate())
-	addCommand(cmd, newCmdDomainsGetTldList())
-	addCommand(cmd, newCmdDomainsSetContacts())
-	addCommand(cmd, newCmdDomainsCheck())
-	addCommand(cmd, newCmdDomainsReactivate())
-	addCommand(cmd, newCmdDomainsRenew())
-	addCommand(cmd, newCmdDomainsGetRegistrarLock())
-	addCommand(cmd, newCmdDomainsSetRegistrarLock())
-	addCommand(cmd, newCmdDomainsGetInfo())
+	addCommand(cmd, newCmdDomainsDNS)
+	addCommand(cmd, newCmdDomainsGetList)
+	addCommand(cmd, newCmdDomainsGetContacts)
+	addCommand(cmd, newCmdDomainsCreate)
+	addCommand(cmd, newCmdDomainsGetTldList)
+	addCommand(cmd, newCmdDomainsSetContacts)
+	addCommand(cmd, newCmdDomainsCheck)
+	addCommand(cmd, newCmdDomainsReactivate)
+	addCommand(cmd, newCmdDomainsRenew)
+	addCommand(cmd, newCmdDomainsGetRegistrarLock)
+	addCommand(cmd, newCmdDomainsSetRegistrarLock)
+	addCommand(cmd, newCmdDomainsGetInfo)
 
 	return cmd
 }
 
-func newCmdDomainsGetList() *cobra.Command {
-	opts := api.DomainsGetListOptions{}
+func newCmdDomainsGetList() (*cobra.Command, error) {
+	var opts api.DomainsGetListOptions
 
 	cmd := &cobra.Command{
 		Use:   "getlist",
@@ -55,11 +55,12 @@ func newCmdDomainsGetList() *cobra.Command {
 	cmd.Flags().StringVar(&opts.PageSize, "pagesize", "20", "Number of domains to be listed on a page. Minimum value is 10, and maximum value is 100")
 	cmd.Flags().StringVar(&opts.SortBy, "sortby", "", "Possible values are NAME, NAME_DESC, EXPIREDATE, EXPIREDATE_DESC, CREATEDATE, CREATEDATE_DESC")
 
-	return cmd
+	return cmd, nil
 }
 
-func newCmdDomainsGetContacts() *cobra.Command {
-	opts := api.DomainsGetContactsOptions{}
+func newCmdDomainsGetContacts() (*cobra.Command, error) {
+	var err error
+	var opts api.DomainsGetContactsOptions
 
 	cmd := &cobra.Command{
 		Use:   "getcontacts",
@@ -77,14 +78,18 @@ func newCmdDomainsGetContacts() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&opts.DomainName, "domainname", "", "Domain to get contacts")
-	cmd.MarkFlagRequired("domainname")
+	err = cmd.MarkFlagRequired("domainname")
+	if err != nil {
+		return nil, err
+	}
 
-	return cmd
+	return cmd, nil
 }
 
-func newCmdDomainsCreate() *cobra.Command {
-	opts := api.DomainsCreateOptions{}
-	reuseRegistrantInfo := false
+func newCmdDomainsCreate() (*cobra.Command, error) {
+	var err error
+	var opts api.DomainsCreateOptions
+	var reuseRegistrantInfo bool
 
 	cmd := &cobra.Command{
 		Use:   "create",
@@ -170,28 +175,54 @@ func newCmdDomainsCreate() *cobra.Command {
 	cmd.Flags().StringVar(&opts.RegistrantOrganizationName, "organizationname", "", "Organization of the Registrant user")
 	cmd.Flags().StringVar(&opts.RegistrantJobTitle, "jobtitle", "", "Job title of the Registrant user")
 	cmd.Flags().StringVar(&opts.RegistrantFirstName, "firstname", "", "First name of the Registrant user")
-	cmd.MarkFlagRequired("firstname")
+	err = cmd.MarkFlagRequired("firstname")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantLastName, "lastname", "", "Second name of the Registrant user")
-	cmd.MarkFlagRequired("lastname")
+	err = cmd.MarkFlagRequired("lastname")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantAddress1, "address1", "", "Address1 of the Registrant user")
-	cmd.MarkFlagRequired("address1")
+	err = cmd.MarkFlagRequired("address1")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantAddress2, "address2", "", "Address2 of the Registrant user")
 	cmd.Flags().StringVar(&opts.RegistrantCity, "city", "", "City of the Registrant user")
-	cmd.MarkFlagRequired("city")
+	err = cmd.MarkFlagRequired("city")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantStateProvince, "stateprovince", "", "State/Province of the Registrant user")
-	cmd.MarkFlagRequired("stateprovince")
+	err = cmd.MarkFlagRequired("stateprovince")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantStateProvinceChoice, "stateprovincechoice", "", "StateProvinceChoice of the Registrant user")
 	cmd.Flags().StringVar(&opts.RegistrantPostalCode, "postalcode", "", "PostalCode of the Registrant user")
-	cmd.MarkFlagRequired("postalcode")
+	err = cmd.MarkFlagRequired("postalcode")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantCountry, "country", "", "Country of the Registrant user")
-	cmd.MarkFlagRequired("country")
+	err = cmd.MarkFlagRequired("country")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantPhone, "phone", "", "Phone number in the format +NNN.NNNNNNNNNN")
-	cmd.MarkFlagRequired("phone")
+	err = cmd.MarkFlagRequired("phone")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantPhoneExt, "phoneext", "", "PhoneExt of the Registrant user")
 	cmd.Flags().StringVar(&opts.RegistrantFax, "fax", "", "Fax number in the format +NNN.NNNNNNNNNN")
 	cmd.Flags().StringVar(&opts.RegistrantEmailAddress, "emailaddress", "", "Email address of the Registrant user")
-	cmd.MarkFlagRequired("emailaddress")
-
+	err = cmd.MarkFlagRequired("emailaddress")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.TechOrganizationName, "techorganizationname", "", "Organization of the Tech user")
 	cmd.Flags().StringVar(&opts.TechJobTitle, "techjobtitle", "", "Job title of the Tech user")
 	cmd.Flags().StringVar(&opts.TechFirstName, "techfirstname", "", "First name of the Tech user")
@@ -256,10 +287,10 @@ func newCmdDomainsCreate() *cobra.Command {
 
 	// Extended attributes ?
 
-	return cmd
+	return cmd, nil
 }
 
-func newCmdDomainsGetTldList() *cobra.Command {
+func newCmdDomainsGetTldList() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "gettldlist",
 		Short: "Returns a list of TLDs",
@@ -275,11 +306,12 @@ func newCmdDomainsGetTldList() *cobra.Command {
 		},
 	}
 
-	return cmd
+	return cmd, nil
 }
 
-func newCmdDomainsSetContacts() *cobra.Command {
-	opts := api.DomainsSetContactsOptions{}
+func newCmdDomainsSetContacts() (*cobra.Command, error) {
+	var err error
+	var opts api.DomainsSetContactsOptions
 	var reuseRegistrantInfo bool
 
 	cmd := &cobra.Command{
@@ -333,32 +365,61 @@ func newCmdDomainsSetContacts() *cobra.Command {
 	cmd.Flags().BoolVar(&reuseRegistrantInfo, "reuseregistrantinfo", false, "Reuse Registrant information for all other contact information [Tech, Admin, AuxBilling]")
 
 	cmd.Flags().StringVar(&opts.DomainName, "domainname", "", "The domain name to register")
-	cmd.MarkFlagRequired("domainname")
+	err = cmd.MarkFlagRequired("domainname")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantOrganizationName, "organizationname", "", "Organization of the Registrant user")
 	cmd.Flags().StringVar(&opts.RegistrantJobTitle, "jobtitle", "", "Job title of the Registrant user")
 	cmd.Flags().StringVar(&opts.RegistrantFirstName, "firstname", "", "First name of the Registrant user")
-	cmd.MarkFlagRequired("firstname")
+	err = cmd.MarkFlagRequired("firstname")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantLastName, "lastname", "", "Second name of the Registrant user")
-	cmd.MarkFlagRequired("lastname")
+	err = cmd.MarkFlagRequired("lastname")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantAddress1, "address1", "", "Address1 of the Registrant user")
-	cmd.MarkFlagRequired("address1")
+	err = cmd.MarkFlagRequired("address1")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantAddress2, "address2", "", "Address2 of the Registrant user")
 	cmd.Flags().StringVar(&opts.RegistrantCity, "city", "", "City of the Registrant user")
-	cmd.MarkFlagRequired("city")
+	err = cmd.MarkFlagRequired("city")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantStateProvince, "stateprovince", "", "State/Province of the Registrant user")
-	cmd.MarkFlagRequired("stateprovince")
+	err = cmd.MarkFlagRequired("stateprovince")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantStateProvinceChoice, "stateprovincechoice", "", "StateProvinceChoice of the Registrant user")
 	cmd.Flags().StringVar(&opts.RegistrantPostalCode, "postalcode", "", "PostalCode of the Registrant user")
-	cmd.MarkFlagRequired("postalcode")
+	err = cmd.MarkFlagRequired("postalcode")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantCountry, "country", "", "Country of the Registrant user")
-	cmd.MarkFlagRequired("country")
+	err = cmd.MarkFlagRequired("country")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantPhone, "phone", "", "Phone number in the format +NNN.NNNNNNNNNN")
-	cmd.MarkFlagRequired("phone")
+	err = cmd.MarkFlagRequired("phone")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.RegistrantPhoneExt, "phoneext", "", "PhoneExt of the Registrant user")
 	cmd.Flags().StringVar(&opts.RegistrantFax, "fax", "", "Fax number in the format +NNN.NNNNNNNNNN")
 	cmd.Flags().StringVar(&opts.RegistrantEmailAddress, "emailaddress", "", "Email address of the Registrant user")
-	cmd.MarkFlagRequired("emailaddress")
-
+	err = cmd.MarkFlagRequired("emailaddress")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.TechOrganizationName, "techorganizationname", "", "Organization of the Tech user")
 	cmd.Flags().StringVar(&opts.TechJobTitle, "techjobtitle", "", "Job title of the Tech user")
 	cmd.Flags().StringVar(&opts.TechFirstName, "techfirstname", "", "First name of the Tech user")
@@ -409,11 +470,12 @@ func newCmdDomainsSetContacts() *cobra.Command {
 
 	// Extended attributes ?
 
-	return cmd
+	return cmd, nil
 }
 
-func newCmdDomainsCheck() *cobra.Command {
-	opts := api.DomainsCheckOptions{}
+func newCmdDomainsCheck() (*cobra.Command, error) {
+	var err error
+	var opts api.DomainsCheckOptions
 
 	cmd := &cobra.Command{
 		Use:   "check",
@@ -431,14 +493,16 @@ func newCmdDomainsCheck() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&opts.DomainList, "domainlist", "", "Comma-separated list of domains to check")
-	cmd.MarkFlagRequired("domainlist")
+	err = cmd.MarkFlagRequired("domainlist")
+	if err != nil {
+		return nil, err
+	}
 
-	return cmd
+	return cmd, nil
 }
 
-func newCmdDomainsReactivate() *cobra.Command {
-	opts := api.DomainsReactivateOptions{}
-
+func newCmdDomainsReactivate() (*cobra.Command, error) {
+	var opts api.DomainsReactivateOptions
 	var isPremiumDomain, yearsToAdd string
 
 	cmd := &cobra.Command{
@@ -480,12 +544,12 @@ func newCmdDomainsReactivate() *cobra.Command {
 	cmd.Flags().StringVar(&yearsToAdd, "yearstoadd", "", "Number of years after expiry")
 	cmd.Flags().StringVar(&isPremiumDomain, "ispremiumdomain", "", "Indication if the domain name is premium")
 
-	return cmd
+	return cmd, nil
 }
 
-func newCmdDomainsRenew() *cobra.Command {
-	opts := api.DomainRenewOptions{}
-
+func newCmdDomainsRenew() (*cobra.Command, error) {
+	var err error
+	var opts api.DomainRenewOptions
 	var isPremiumDomain string
 
 	cmd := &cobra.Command{
@@ -517,20 +581,25 @@ func newCmdDomainsRenew() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&opts.DomainName, "domainname", "", "Domain name to renew")
-	cmd.MarkFlagRequired("domainname")
-
+	err = cmd.MarkFlagRequired("domainname")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().IntVar(&opts.Years, "years", 0, "Number of years to renew")
-	cmd.MarkFlagRequired("years")
-
+	err = cmd.MarkFlagRequired("years")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.PromotionCode, "promotioncode", "", "Domain name to renew")
 	cmd.Flags().StringVar(&opts.PremiumPrice, "premiumprice", "", "Renewal price for the premium domain")
 	cmd.Flags().StringVar(&isPremiumDomain, "ispremiumdomain", "", "Indication if the domain name is premium")
 
-	return cmd
+	return cmd, nil
 }
 
-func newCmdDomainsGetRegistrarLock() *cobra.Command {
-	opts := api.DomainsGetRegistrarLockOptions{}
+func newCmdDomainsGetRegistrarLock() (*cobra.Command, error) {
+	var err error
+	var opts api.DomainsGetRegistrarLockOptions
 
 	cmd := &cobra.Command{
 		Use:   "getregistrarlock",
@@ -548,13 +617,17 @@ func newCmdDomainsGetRegistrarLock() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&opts.DomainName, "domainname", "", "Domain name to get status for")
-	cmd.MarkFlagRequired("domainname")
+	err = cmd.MarkFlagRequired("domainname")
+	if err != nil {
+		return nil, err
+	}
 
-	return cmd
+	return cmd, nil
 }
 
-func newCmdDomainsSetRegistrarLock() *cobra.Command {
-	opts := api.DomainsSetRegistrarLockOptions{}
+func newCmdDomainsSetRegistrarLock() (*cobra.Command, error) {
+	var err error
+	var opts api.DomainsSetRegistrarLockOptions
 
 	cmd := &cobra.Command{
 		Use:   "setregistrarlock",
@@ -578,15 +651,18 @@ func newCmdDomainsSetRegistrarLock() *cobra.Command {
 	}
 
 	cmd.Flags().StringVar(&opts.DomainName, "domainname", "", "Domain name to set status for")
-	cmd.MarkFlagRequired("domainname")
-
+	err = cmd.MarkFlagRequired("domainname")
+	if err != nil {
+		return nil, err
+	}
 	cmd.Flags().StringVar(&opts.LockAction, "lockaction", "", "Possible values: LOCK, UNLOCK")
 
-	return cmd
+	return cmd, nil
 }
 
-func newCmdDomainsGetInfo() *cobra.Command {
-	opts := api.DomainsGetInfoOptions{}
+func newCmdDomainsGetInfo() (*cobra.Command, error) {
+	var err error
+	var opts api.DomainsGetInfoOptions
 
 	cmd := &cobra.Command{
 		Use:   "getinfo",
@@ -605,7 +681,10 @@ func newCmdDomainsGetInfo() *cobra.Command {
 
 	cmd.Flags().StringVar(&opts.DomainName, "domainname", "", "Domain name for which domain information needs to be requested")
 	cmd.Flags().StringVar(&opts.HostName, "hostname", "", "Hosted domain name for which domain information needs to be requested")
-	cmd.MarkFlagRequired("domainname")
+	err = cmd.MarkFlagRequired("domainname")
+	if err != nil {
+		return nil, err
+	}
 
-	return cmd
+	return cmd, nil
 }

@@ -40,30 +40,39 @@ func TestNewCmdDomains(t *testing.T) {
 }
 
 func TestNewCmdDomainsGetList(t *testing.T) {
-	cmd := newCmdDomainsGetList()
+	cmd, err := newCmdDomainsGetList()
+	if err != nil {
+		t.Error(err)
+	}
 
 	listtype := cmd.Flag("listtype")
 	if listtype == nil {
 		t.Error("Missing flag `listtype`")
-	}
-	if listtype.Value.String() != "ALL" {
-		t.Error("Wrong default value set for `listtype`")
+	} else {
+		value := listtype.Value
+		if value == nil || value.String() != "ALL" {
+			t.Error("Wrong default value set for `listtype`")
+		}
 	}
 
 	page := cmd.Flag("page")
 	if page == nil {
 		t.Error("Missing flag `page`")
-	}
-	if page.Value.String() != "1" {
-		t.Error("Wrong default value set for `page`")
+	} else {
+		value := page.Value
+		if value == nil || value.String() != "1" {
+			t.Error("Wrong default value set for `page`")
+		}
 	}
 
 	pagesize := cmd.Flag("pagesize")
 	if pagesize == nil {
 		t.Error("Missing flag `pagesize`")
-	}
-	if pagesize.Value.String() != "20" {
-		t.Error("Wrong default value set for `pagesize`")
+	} else {
+		value := pagesize.Value
+		if value == nil || value.String() != "20" {
+			t.Error("Wrong default value set for `pagesize`")
+		}
 	}
 
 	searchterm := cmd.Flag("searchterm")
@@ -78,7 +87,10 @@ func TestNewCmdDomainsGetList(t *testing.T) {
 }
 
 func TestNewCmdDomainsGetContacts(t *testing.T) {
-	cmd := newCmdDomainsGetContacts()
+	cmd, err := newCmdDomainsGetContacts()
+	if err != nil {
+		t.Error(err)
+	}
 
 	domainname := cmd.Flag("domainname")
 	if domainname == nil {
@@ -90,11 +102,17 @@ func TestNewCmdDomainsGetContacts(t *testing.T) {
 }
 
 func TestNewCmdDomainsCreate(t *testing.T) {
-	newCmdDomainsCreate()
+	_, err := newCmdDomainsCreate()
+	if err != nil {
+		t.Error(err)
+	}
 }
 
 func TestNewCmdDomainsGetTldList(t *testing.T) {
-	cmd := newCmdDomainsGetTldList()
+	cmd, err := newCmdDomainsGetTldList()
+	if err != nil {
+		t.Error(err)
+	}
 
 	if cmd == nil {
 		t.Error("Missing command `domains gettldlist`")
@@ -102,7 +120,10 @@ func TestNewCmdDomainsGetTldList(t *testing.T) {
 }
 
 func TestNewCmdDomainsCheck(t *testing.T) {
-	cmd := newCmdDomainsCheck()
+	cmd, err := newCmdDomainsCheck()
+	if err != nil {
+		t.Error(err)
+	}
 
 	domainlist := cmd.Flag("domainlist")
 	if !isFlagRequired(domainlist) {
@@ -111,15 +132,24 @@ func TestNewCmdDomainsCheck(t *testing.T) {
 }
 
 func TestNewCmdDomainsReactivate(t *testing.T) {
-	newCmdDomainsReactivate()
+	_, err := newCmdDomainsReactivate()
+	if err != nil {
+		t.Error(err)
+	}
 }
 
 func TestNewCmdDomainsRenew(t *testing.T) {
-	newCmdDomainsRenew()
+	_, err := newCmdDomainsRenew()
+	if err != nil {
+		t.Error(err)
+	}
 }
 
 func TestNewCmdDomainsGetRegistrarLock(t *testing.T) {
-	cmd := newCmdDomainsGetRegistrarLock()
+	cmd, err := newCmdDomainsGetRegistrarLock()
+	if err != nil {
+		t.Error(err)
+	}
 
 	domainname := cmd.Flag("domainname")
 	if !isFlagRequired(domainname) {
@@ -128,11 +158,17 @@ func TestNewCmdDomainsGetRegistrarLock(t *testing.T) {
 }
 
 func TestNewCmdDomainsSetRegistrarLock(t *testing.T) {
-	newCmdDomainsSetRegistrarLock()
+	_, err := newCmdDomainsSetRegistrarLock()
+	if err != nil {
+		t.Error(err)
+	}
 }
 
 func TestNewCmdDomainsGetInfo(t *testing.T) {
-	cmd := newCmdDomainsGetInfo()
+	cmd, err := newCmdDomainsGetInfo()
+	if err != nil {
+		t.Error(err)
+	}
 
 	domainname := cmd.Flag("domainname")
 	if !isFlagRequired(domainname) {
