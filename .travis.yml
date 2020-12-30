@@ -8,10 +8,12 @@ env:
 
 os:
   - linux
-  - osx
 
 go:
   - "1.15.1"
+
+before_install:
+  - touch ~/.config/namecheap/config.yml
 
 cache:
   directories:

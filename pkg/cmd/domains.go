@@ -16,6 +16,7 @@ func newCmdDomains() *cobra.Command {
 	}
 
 	addCommand(cmd, newCmdDomainsDNS)
+	addCommand(cmd, newCmdDomainsNS)
 	addCommand(cmd, newCmdDomainsGetList)
 	addCommand(cmd, newCmdDomainsGetContacts)
 	addCommand(cmd, newCmdDomainsCreate)
