@@ -1,6 +1,7 @@
 # Namecheap Go
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/jsgv/namecheap-go.svg)](https://pkg.go.dev/github.com/jsgv/namecheap-go)
+[![Build Status](https://travis-ci.com/jsgv/namecheap-go.svg?branch=master)](https://travis-ci.com/jsgv/namecheap-go)
 
 `namecheap-go` is a [Namecheap API](https://www.namecheap.com/support/api/methods/) CLI app. 
 So far only methods that I personally use are implemented, but I plan to add the rest with time.
