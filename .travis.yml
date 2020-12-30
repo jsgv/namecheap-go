@@ -13,6 +13,7 @@ go:
   - "1.15.1"
 
 before_install:
+  - mkdir -p ~/.config/namecheap/
   - touch ~/.config/namecheap/config.yml
 
 cache:
