@@ -73,15 +73,15 @@ clientIP: 127.0.0.1
     * [x] [domains.dns.setEmailForwarding](https://www.namecheap.com/support/api/methods/domains-dns/set-email-forwarding/) 
     * [x] [domains.dns.setHosts](https://www.namecheap.com/support/api/methods/domains-dns/set-hosts/) 
 * Domains NS
-    * [ ] [domains.ns.create](https://www.namecheap.com/support/api/methods/domains-ns/create/) 
-    * [ ] [domains.ns.delete](https://www.namecheap.com/support/api/methods/domains-ns/delete/) 
-    * [ ] [domains.ns.getInfo](https://www.namecheap.com/support/api/methods/domains-ns/getinfo/) 
-    * [ ] [domains.ns.update](https://www.namecheap.com/support/api/methods/domains-ns/update/) 
+    * [x] [domains.ns.create](https://www.namecheap.com/support/api/methods/domains-ns/create/) 
+    * [x] [domains.ns.delete](https://www.namecheap.com/support/api/methods/domains-ns/delete/) 
+    * [x] [domains.ns.getInfo](https://www.namecheap.com/support/api/methods/domains-ns/getinfo/) 
+    * [x] [domains.ns.update](https://www.namecheap.com/support/api/methods/domains-ns/update/) 
 * Domains Transfer
-    * [ ] [domains.transfer.create](https://www.namecheap.com/support/api/methods/domains-transfer/create/) 
-    * [ ] [domains.transfer.getStatus](https://www.namecheap.com/support/api/methods/domains-transfer/get-status/) 
-    * [ ] [domains.transfer.updateStatus](https://www.namecheap.com/support/api/methods/domains-transfer/update-status/) 
-    * [ ] [domains.transfer.getList](https://www.namecheap.com/support/api/methods/domains-transfer/get-list/) 
+    * [x] [domains.transfer.create](https://www.namecheap.com/support/api/methods/domains-transfer/create/) 
+    * [x] [domains.transfer.getStatus](https://www.namecheap.com/support/api/methods/domains-transfer/get-status/) 
+    * [x] [domains.transfer.updateStatus](https://www.namecheap.com/support/api/methods/domains-transfer/update-status/) 
+    * [x] [domains.transfer.getList](https://www.namecheap.com/support/api/methods/domains-transfer/get-list/) 
 * SSL
     * [ ] [ssl.create](https://www.namecheap.com/support/api/methods/ssl/create/) 
     * [ ] [ssl.getList](https://www.namecheap.com/support/api/methods/ssl/get-list/) 

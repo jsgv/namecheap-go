@@ -30,7 +30,7 @@ func TestNewCmdDomains(t *testing.T) {
 
 	childCommands := cmd.Commands()
 
-	if len(childCommands) != 13 {
+	if len(childCommands) != 14 {
 		t.Error("Wrong number of child commands for `domains`")
 	}
 

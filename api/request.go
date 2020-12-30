@@ -29,3 +29,9 @@ type ApiResponse struct {
 		}
 	}
 }
+
+type Paging struct {
+	TotalItems  int `xml:"TotalItems"`
+	CurrentPage int `xml:"CurrentPage"`
+	PageSize    int `xml:"PageSize"`
+}

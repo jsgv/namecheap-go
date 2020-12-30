@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 	"reflect"
+	"regexp"
 	"strconv"
 )
 
@@ -38,6 +39,7 @@ func (c *Client) prepareUrl(command string, opts interface{}) string {
 		command,
 	)
 
+	yesnoRx := regexp.MustCompile(`^yesno`)
 	params := make(map[string]interface{})
 
 	v, isMap := opts.(map[string]interface{})
@@ -54,8 +56,18 @@ func (c *Client) prepareUrl(command string, opts interface{}) string {
 
 				switch typeOfS.Field(i).Type.Kind() {
 				case reflect.Bool:
+					// Namecheap wants certain "boolean" fields in yes|no format.
+					// Using struct tags for now.
 					value := v.Field(i).Bool()
-					params[name] = strconv.FormatBool(value)
+					if yesnoRx.MatchString(typeOfS.Field(i).Tag.Get("namecheap")) {
+						if value {
+							params[name] = "yes"
+						} else {
+							params[name] = "no"
+						}
+					} else {
+						params[name] = strconv.FormatBool(value)
+					}
 				case reflect.String:
 					value := v.Field(i).String()
 					if value != "" {

@@ -54,46 +54,46 @@ func (c *Client) DomainsGetList(opts DomainsGetListOptions) (*DomainsGetListResp
 	return r, err
 }
 
-type ContactInfo struct {
-	OrganizationName    string `xml:"OrganizationName"`
-	JobTitle            string `xml:"JobTitle"`
-	FirstName           string `xml:"FirstName"`
-	LastName            string `xml:"LastName"`
-	Address1            string `xml:"Address1"`
-	Address2            string `xml:"Address2"`
-	City                string `xml:"City"`
-	StateProvince       string `xml:"StateProvince"`
-	StateProvinceChoice string `xml:"StateProvinceChoice"`
-	PostalCode          string `xml:"PostalCode"`
-	Country             string `xml:"Country"`
-	Phone               string `xml:"Phone"`
-	Fax                 string `xml:"Fax"`
-	EmailAddress        string `xml:"EmailAddress"`
-	PhoneExt            string `xml:"PhoneExt"`
-	FaxExt              string `xml:"FaxExt"`
+type contactInfo struct {
+	OrganizationName    string `xml:"OrganizationName" json:",omitempty"`
+	JobTitle            string `xml:"JobTitle" json:",omitempty"`
+	FirstName           string `xml:"FirstName" json:",omitempty"`
+	LastName            string `xml:"LastName" json:",omitempty"`
+	Address1            string `xml:"Address1" json:",omitempty"`
+	Address2            string `xml:"Address2" json:",omitempty"`
+	City                string `xml:"City" json:",omitempty"`
+	StateProvince       string `xml:"StateProvince" json:",omitempty"`
+	StateProvinceChoice string `xml:"StateProvinceChoice" json:",omitempty"`
+	PostalCode          string `xml:"PostalCode" json:",omitempty"`
+	Country             string `xml:"Country" json:",omitempty"`
+	Phone               string `xml:"Phone" json:",omitempty"`
+	Fax                 string `xml:"Fax" json:",omitempty"`
+	EmailAddress        string `xml:"EmailAddress" json:",omitempty"`
+	PhoneExt            string `xml:"PhoneExt" json:",omitempty"`
+	FaxExt              string `xml:"FaxExt" json:",omitempty"`
 }
 
-type ContactList struct {
+type contactList struct {
 	Registrant struct {
 		XMLName  xml.Name `xml:"Registrant" json:"-"`
-		ReadOnly bool     `xml:"ReadOnly,attr"`
-		ContactInfo
-	}
+		ReadOnly bool     `xml:"ReadOnly,attr" json:",omitempty"`
+		contactInfo
+	} `json:",omitempty"`
 	Tech struct {
 		XMLName  xml.Name `xml:"Tech" json:"-"`
-		ReadOnly bool     `xml:"ReadOnly,attr"`
-		ContactInfo
-	}
+		ReadOnly bool     `xml:"ReadOnly,attr" json:",omitempty"`
+		contactInfo
+	} `json:",omitempty"`
 	Admin struct {
 		XMLName  xml.Name `xml:"Admin" json:"-"`
-		ReadOnly bool     `xml:"ReadOnly,attr"`
-		ContactInfo
-	}
+		ReadOnly bool     `xml:"ReadOnly,attr" json:",omitempty"`
+		contactInfo
+	} `json:",omitempty"`
 	AuxBilling struct {
 		XMLName  xml.Name `xml:"AuxBilling" json:"-"`
-		ReadOnly bool     `xml:"ReadOnly,attr"`
-		ContactInfo
-	}
+		ReadOnly bool     `xml:"ReadOnly,attr" json:",omitempty"`
+		contactInfo
+	} `json:",omitempty"`
 }
 
 // DomainsGetContactsResponse represents the response
@@ -107,12 +107,12 @@ type DomainsGetContactsResponse struct {
 			XMLName      xml.Name `xml:"DomainContactsResult" json:"-"`
 			Domain       string   `xml:"Domain,attr"`
 			Domainnameid string   `xml:"domainnameid,attr"`
-			ContactList
+			contactList
 			// CurrentAttributes // TODO
 			WhoisGuardContact struct {
 				XMLName xml.Name `xml:"WhoisGuardContact" json:"-"`
-				ContactList
-			}
+				contactList
+			} `json:",omitempty"`
 		}
 	}
 }
