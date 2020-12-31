@@ -17,3 +17,5 @@ cache:
   directories:
      - $HOME/gopath/pkg/mod
      - $HOME/.cache/go-build
+
+if: tag IS blank
