@@ -82,11 +82,20 @@ func (c *Client) prepareUrl(command string, opts interface{}) string {
 	}
 
 	for k, v := range params {
+		var v2 interface{}
+
+		switch t := v.(type) {
+		case string:
+			v2 = url.QueryEscape(t)
+		default:
+			v2 = v
+		}
+
 		u = fmt.Sprintf(
 			"%s&%s=%s",
 			u,
 			k,
-			v,
+			v2,
 		)
 	}
 
