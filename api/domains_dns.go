@@ -208,7 +208,7 @@ func (c *Client) DomainsDNSSetEmailForwarding(opts DomainsDNSSetEmailForwardingO
 	}
 
 	for i, v := range opts.FowardTo {
-		k := fmt.Sprintf("FowardTo%d", i+1)
+		k := fmt.Sprintf("ForwardTo%d", i+1)
 		m[k] = v
 	}
 
