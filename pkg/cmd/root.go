@@ -10,7 +10,7 @@ import (
 var (
 	rootCmd   = newRootCmd()
 	apiClient *api.Client
-	version   = "v0.0.9"
+	version   = "v0.0.10"
 )
 
 func init() {
