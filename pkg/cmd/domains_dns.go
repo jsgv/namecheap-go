@@ -235,12 +235,14 @@ func newCmdDomainsDNSSetEmailForwarding() (*cobra.Command, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	cmd.Flags().StringArrayVar(&opts.MailBox, "mailbox", nil, "Mailbox for which to set email forwarding")
 	err = cmd.MarkFlagRequired("mailbox")
 	if err != nil {
 		return nil, err
 	}
-	cmd.Flags().StringArrayVar(&opts.FowardTo, "forwardto", nil, "Email address to forward to")
+
+	cmd.Flags().StringArrayVar(&opts.ForwardTo, "forwardto", nil, "Email address to forward to")
 	err = cmd.MarkFlagRequired("forwardto")
 	if err != nil {
 		return nil, err

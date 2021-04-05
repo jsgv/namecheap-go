@@ -193,7 +193,7 @@ type DomainsDNSSetEmailForwardingResponse struct {
 type DomainsDNSSetEmailForwardingOptions struct {
 	DomainName string
 	MailBox    []string
-	FowardTo   []string
+	ForwardTo  []string
 }
 
 // DomainsDNSSetEmailForwarding sets email forwarding for a domain name.
@@ -207,7 +207,7 @@ func (c *Client) DomainsDNSSetEmailForwarding(opts DomainsDNSSetEmailForwardingO
 		m[k] = v
 	}
 
-	for i, v := range opts.FowardTo {
+	for i, v := range opts.ForwardTo {
 		k := fmt.Sprintf("ForwardTo%d", i+1)
 		m[k] = v
 	}
