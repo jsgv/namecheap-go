@@ -69,8 +69,10 @@ func init() {
 		)
 	})
 
-	rootCmd.AddCommand(newCmdDomains())
-	rootCmd.AddCommand(newCmdVersion())
+	addCommand(rootCmd, newCmdDomains)
+	addCommand(rootCmd, newCmdSSL)
+	addCommand(rootCmd, newCmdUsers)
+	addCommand(rootCmd, newCmdVersion)
 }
 
 func newRootCmd() *cobra.Command {

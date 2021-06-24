@@ -42,8 +42,8 @@ type DomainsGetListResponse struct {
 type DomainsGetListOptions struct {
 	ListType   string
 	SearchTerm string
-	Page       string
-	PageSize   string
+	Page       int
+	PageSize   int
 	SortBy     string
 }
 

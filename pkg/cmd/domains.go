@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func newCmdDomains() *cobra.Command {
+func newCmdDomains() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "domains",
 		Short: "Manage domains",
@@ -30,7 +30,7 @@ func newCmdDomains() *cobra.Command {
 	addCommand(cmd, newCmdDomainsSetRegistrarLock)
 	addCommand(cmd, newCmdDomainsGetInfo)
 
-	return cmd
+	return cmd, nil
 }
 
 func newCmdDomainsGetList() (*cobra.Command, error) {
@@ -45,16 +45,14 @@ func newCmdDomainsGetList() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
 	cmd.Flags().StringVar(&opts.ListType, "listtype", "ALL", "Possible values are ALL, EXPIRING, or EXPIRED")
 	cmd.Flags().StringVar(&opts.SearchTerm, "searchterm", "", "Keyword to look for in the domain list")
-	cmd.Flags().StringVar(&opts.Page, "page", "1", "Page to return")
-	cmd.Flags().StringVar(&opts.PageSize, "pagesize", "20", "Number of domains to be listed on a page. Minimum value is 10, and maximum value is 100")
+	cmd.Flags().IntVar(&opts.Page, "page", 1, "Page to return")
+	cmd.Flags().IntVar(&opts.PageSize, "pagesize", 20, "Number of domains to be listed on a page. Minimum value is 10, and maximum value is 100")
 	cmd.Flags().StringVar(&opts.SortBy, "sortby", "", "Possible values are NAME, NAME_DESC, EXPIREDATE, EXPIREDATE_DESC, CREATEDATE, CREATEDATE_DESC")
 
 	return cmd, nil
@@ -73,9 +71,7 @@ func newCmdDomainsGetContacts() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -155,9 +151,7 @@ func newCmdDomainsCreate() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -302,9 +296,7 @@ func newCmdDomainsGetTldList() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -358,9 +350,7 @@ func newCmdDomainsSetContacts() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -488,9 +478,7 @@ func newCmdDomainsCheck() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -534,9 +522,7 @@ func newCmdDomainsReactivate() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -576,9 +562,7 @@ func newCmdDomainsRenew() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -612,9 +596,7 @@ func newCmdDomainsGetRegistrarLock() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -646,9 +628,7 @@ func newCmdDomainsSetRegistrarLock() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -675,9 +655,7 @@ func newCmdDomainsGetInfo() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 

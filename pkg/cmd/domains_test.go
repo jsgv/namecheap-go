@@ -23,7 +23,10 @@ func isFlagRequired(f *flag.Flag) bool {
 }
 
 func TestNewCmdDomains(t *testing.T) {
-	cmd := newCmdDomains()
+	cmd, err := newCmdDomains()
+	if err != nil {
+		t.Error(err)
+	}
 
 	b := bytes.NewBufferString("")
 	cmd.SetOut(b)

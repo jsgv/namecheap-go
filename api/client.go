@@ -40,6 +40,7 @@ func (c *Client) prepareUrl(command string, opts interface{}) string {
 	)
 
 	yesnoRx := regexp.MustCompile(`^yesno`)
+	intnozeroRx := regexp.MustCompile(`intnozero`)
 	params := make(map[string]interface{})
 
 	v, isMap := opts.(map[string]interface{})
@@ -60,13 +61,16 @@ func (c *Client) prepareUrl(command string, opts interface{}) string {
 
 			for i := 0; i < v.NumField(); i++ {
 				name := typeOfS.Field(i).Name
+				namecheapStructTag := typeOfS.Field(i).Tag.Get("namecheap")
 
 				switch typeOfS.Field(i).Type.Kind() {
 				case reflect.Bool:
 					// Namecheap wants certain "boolean" fields in yes|no format.
+					// Struct fields are boolean values that get converted to yes|no strings.
 					// Using struct tags for now.
 					value := v.Field(i).Bool()
-					if yesnoRx.MatchString(typeOfS.Field(i).Tag.Get("namecheap")) {
+
+					if yesnoRx.MatchString(namecheapStructTag) {
 						if value {
 							params[name] = "yes"
 						} else {
@@ -82,7 +86,26 @@ func (c *Client) prepareUrl(command string, opts interface{}) string {
 					}
 				case reflect.Int:
 					value := v.Field(i).Int()
-					params[name] = fmt.Sprintf("%d", value)
+
+					// Does not allow a value of zero or less to be set.
+					if intnozeroRx.MatchString(namecheapStructTag) {
+						if value > 0 {
+							params[name] = fmt.Sprintf("%d", value)
+						}
+					} else {
+						params[name] = fmt.Sprintf("%d", value)
+					}
+				case reflect.Ptr:
+					// allows for a 'third' state for boolean. [nil, true, false]
+					// for namecheap boolean parameters that are not required and have no default value
+					value := v.Field(i).Elem()
+
+					if value.IsValid() {
+						switch value.Kind() {
+						case reflect.Bool:
+							params[name] = strconv.FormatBool(value.Bool())
+						}
+					}
 				}
 			}
 		}

@@ -48,9 +48,7 @@ func newCmdDomainsDNSSetDefault() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -86,9 +84,7 @@ func newCmdDomainsDNSSetCustom() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -130,9 +126,7 @@ func newCmdDomainsDNSGetList() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -168,9 +162,7 @@ func newCmdDomainsDNSGetHosts() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -196,9 +188,7 @@ func newCmdDomainsDNSGetEmailForwarding() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -224,9 +214,7 @@ func newCmdDomainsDNSSetEmailForwarding() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -274,9 +262,7 @@ func newCmdDomainsDNSSetHosts() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 

@@ -32,9 +32,7 @@ func newCmdDomainsTransferCreate() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -71,9 +69,7 @@ func newCmdDomainsTransferGetStatus() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -99,9 +95,7 @@ func newCmdDomainsTransferUpdateStatus() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -128,9 +122,7 @@ func newCmdDomainsTransferGetList() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 

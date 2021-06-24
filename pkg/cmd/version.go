@@ -6,14 +6,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func newCmdVersion() *cobra.Command {
+func newCmdVersion() (*cobra.Command, error) {
 	cmd := &cobra.Command{
 		Use:   "version",
 		Short: "Display the version",
-		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Fprintln(cmd.OutOrStdout(), version)
+		RunE: func(cmd *cobra.Command, args []string) error {
+			_, err := fmt.Fprintln(cmd.OutOrStdout(), version)
+			return err
 		},
 	}
 
-	return cmd
+	return cmd, nil
 }

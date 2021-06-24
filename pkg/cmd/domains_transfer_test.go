@@ -15,7 +15,6 @@ func TestNewCmdDomainsTransfer(t *testing.T) {
 	cmd.SetOut(b)
 
 	if len(cmd.Commands()) != 4 {
-
 		t.Error("Wrong number of child commands for `domains transfer`")
 	}
 

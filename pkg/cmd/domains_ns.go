@@ -45,9 +45,7 @@ func newCmdDomainsNSCreate() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -94,9 +92,7 @@ func newCmdDomainsNSDelete() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -137,9 +133,7 @@ func newCmdDomainsNSGetInfo() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 
@@ -180,9 +174,7 @@ func newCmdDomainsNSUpdate() (*cobra.Command, error) {
 				return err
 			}
 
-			printResults(r)
-
-			return nil
+			return printResults(r)
 		},
 	}
 

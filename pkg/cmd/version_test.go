@@ -6,7 +6,10 @@ import (
 )
 
 func TestNewCmdVersion(t *testing.T) {
-	cmd := newCmdVersion()
+	cmd, err := newCmdVersion()
+	if err != nil {
+		t.Error(err)
+	}
 
 	b := bytes.NewBufferString("")
 	cmd.SetOut(b)
