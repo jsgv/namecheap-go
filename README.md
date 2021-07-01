@@ -108,12 +108,12 @@ clientIP: 127.0.0.1
     * [x] [users.login](https://www.namecheap.com/support/api/methods/users/login/)
     * [x] [users.resetPassword](https://www.namecheap.com/support/api/methods/users/reset-password/)
 * Users Address
-    * [ ] [users.address.create](https://www.namecheap.com/support/api/methods/users-address/create/)
-    * [ ] [users.address.delete](https://www.namecheap.com/support/api/methods/users-address/delete/)
-    * [ ] [users.address.getInfo](https://www.namecheap.com/support/api/methods/users-address/get-info/)
-    * [ ] [users.address.getList](https://www.namecheap.com/support/api/methods/users-address/get-list/)
-    * [ ] [users.address.setDefault](https://www.namecheap.com/support/api/methods/users-address/set-default/)
-    * [ ] [users.address.update](https://www.namecheap.com/support/api/methods/users-address/update/)
+    * [x] [users.address.create](https://www.namecheap.com/support/api/methods/users-address/create/)
+    * [x] [users.address.delete](https://www.namecheap.com/support/api/methods/users-address/delete/)
+    * [x] [users.address.getInfo](https://www.namecheap.com/support/api/methods/users-address/get-info/)
+    * [x] [users.address.getList](https://www.namecheap.com/support/api/methods/users-address/get-list/)
+    * [x] [users.address.setDefault](https://www.namecheap.com/support/api/methods/users-address/set-default/)
+    * [x] [users.address.update](https://www.namecheap.com/support/api/methods/users-address/update/)
 * Whoisguard
     * [ ] [whoisguard.changeemailaddress](https://www.namecheap.com/support/api/methods/whoisguard/change-email-address/)
     * [ ] [whoisguard.enable](https://www.namecheap.com/support/api/methods/whoisguard/enable/)

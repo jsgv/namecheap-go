@@ -11,6 +11,7 @@ func newCmdUsers() (*cobra.Command, error) {
 		Short: "Manage users",
 	}
 
+	addCommand(cmd, newCmdUsersAddress)
 	addCommand(cmd, newCmdUsersGetPricing)
 	addCommand(cmd, newCmdUsersGetBalances)
 	addCommand(cmd, newCmdUsersChangePassword)
