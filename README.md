@@ -5,8 +5,6 @@
 [![Build Status](https://travis-ci.com/jsgv/namecheap-go.svg?branch=master)](https://travis-ci.com/jsgv/namecheap-go)
 
 `namecheap-go` is a [Namecheap API](https://www.namecheap.com/support/api/methods/) CLI app.
-So far only methods that I personally use are implemented, but I plan to add the rest with time.
-
 
 ## Installation
 ```
@@ -50,6 +48,11 @@ clientIP: 127.0.0.1
 ```
 
 `namecheap domains getinfo --domainname example.com`
+
+## Note
+I have not tested all the live responses returned from the API. There might be some wrong ones.
+I have found incorrect details in the Namecheap API documentation.
+Feel free to open an issue letting me know and I will fix it.
 
 ## Implemented methods
 
@@ -121,7 +124,3 @@ clientIP: 127.0.0.1
     * [x] [whoisguard.getList](https://www.namecheap.com/support/api/methods/whoisguard/getlist/)
     * [x] [whoisguard.renew](https://www.namecheap.com/support/api/methods/whoisguard/renew/)
 
-## Note
-I have not tested all the live responses returned from the API. There might be some wrong ones.
-I have found incorrect details in the Namecheap API documentation.
-Feel free to open an issue letting me know and I will fix it.
