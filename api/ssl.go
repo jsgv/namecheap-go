@@ -240,7 +240,7 @@ type SSLResendApproverEmailResponse struct {
 		XMLName                      xml.Name `xml:"CommandResponse" json:"-"`
 		Type                         string   `xml:"Type,attr"`
 		SSLResendApproverEmailResult struct {
-			XMLName   xml.Name `xml:"" json:"-"`
+			XMLName   xml.Name `xml:"SSLResendApproverEmailResult" json:"-"`
 			ID        int      `xml:"ID,attr"`
 			IsSuccess bool     `xml:"IsSuccess,attr"`
 		}
@@ -269,7 +269,7 @@ type SSLGetInfoResponse struct {
 		XMLName          xml.Name `xml:"CommandResponse" json:"-"`
 		Type             string   `xml:"Type,attr"`
 		SSLGetInfoResult struct {
-			XMLName              xml.Name `xml:"" json:"-"`
+			XMLName              xml.Name `xml:"SSLGetInfoResult" json:"-"`
 			Status               string   `xml:"Status,attr"`
 			StatusDescription    string   `xml:"StatusDescription,attr"`
 			Type                 string   `xml:"Type,attr"`
@@ -313,7 +313,7 @@ type SSLRenewResponse struct {
 		XMLName        xml.Name `xml:"CommandResponse" json:"-"`
 		Type           string   `xml:"Type,attr"`
 		SSLRenewResult struct {
-			XMLName       xml.Name `xml:"" json:"-"`
+			XMLName       xml.Name `xml:"SSLRenewResult" json:"-"`
 			CertificateID int      `xml:"CertificateID,attr"`
 			SSLType       string   `xml:"SSLType,attr"`
 			Years         int      `xml:"Years,attr"`
@@ -354,7 +354,7 @@ type SSLReissueResponse struct {
 
 		// TODO: finish rest of nodes
 		SSLReissueResult struct {
-			XMLName   xml.Name `xml:"" json:"-"`
+			XMLName   xml.Name `xml:"SSLReissueResult" json:"-"`
 			IsSuccess bool     `xml:"IsSuccess,attr"`
 			ID        int      `xml:"ID,attr"`
 		}
@@ -422,7 +422,7 @@ type SSLResendFulfillmentEmailResponse struct {
 		XMLName                         xml.Name `xml:"CommandResponse" json:"-"`
 		Type                            string   `xml:"Type,attr"`
 		SSLResendFulfillmentEmailResult struct {
-			XMLName   xml.Name `xml:"" json:"-"`
+			XMLName   xml.Name `xml:"SSLResendFulfillmentEmailResult" json:"-"`
 			IsSuccess bool     `xml:"IsSuccess,attr"`
 			ID        int      `xml:"ID,attr"`
 		}
@@ -451,14 +451,14 @@ type SSLPurchaseMoreSansResponse struct {
 		XMLName                   xml.Name `xml:"CommandResponse" json:"-"`
 		Type                      string   `xml:"Type,attr"`
 		SSLPurchaseMoreSANSResult struct {
-			XMLName       xml.Name `xml:"" json:"-"`
+			XMLName       xml.Name `xml:"SSLPurchaseMoreSANSResult" json:"-"`
 			IsSuccess     bool     `xml:"IsSuccess,attr"`
 			OrderID       int      `xml:"OrderId,attr"`
 			TransactionID int      `xml:"TransactionId,attr"`
 			ChargedAmount string   `xml:"ChargedAmount,attr"`
 
 			SSLCertificate struct {
-				XMLName       xml.Name `xml:"" json:"-"`
+				XMLName       xml.Name `xml:"SSLCertificate" json:"-"`
 				CertificateID int      `xml:"CertificateID,attr"`
 				SSLType       string   `xml:"SSLType,attr"`
 				Years         int      `xml:"Years,attr"`
@@ -492,7 +492,7 @@ type SSLRevokeCertificateResponse struct {
 		XMLName                 xml.Name `xml:"CommandResponse" json:"-"`
 		Type                    string   `xml:"Type,attr"`
 		RevokeCertificateResult struct {
-			XMLName   xml.Name `xml:"" json:"-"`
+			XMLName   xml.Name `xml:"RevokeCertificateResult" json:"-"`
 			IsSuccess bool     `xml:"IsSuccess,attr"`
 			ID        int      `xml:"ID,attr"`
 		}
@@ -522,12 +522,12 @@ type SSLEditDCVMethodResponse struct {
 		XMLName                xml.Name `xml:"CommandResponse" json:"-"`
 		Type                   string   `xml:"Type,attr"`
 		SSLEditDCVMethodResult struct {
-			XMLName   xml.Name `xml:"" json:"-"`
+			XMLName   xml.Name `xml:"SSLEditDCVMethodResult" json:"-"`
 			IsSuccess bool     `xml:"IsSuccess,attr"`
 			ID        int      `xml:"ID,attr"`
 
 			HttpDCValidation struct {
-				XMLName        xml.Name `xml:"" json:"-"`
+				XMLName        xml.Name `xml:"HttpDCValidation" json:"-"`
 				ValueAvailable bool     `xml:"ValueAvailable,attr" json:",omitempty"`
 			}
 

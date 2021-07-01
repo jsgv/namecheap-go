@@ -116,7 +116,7 @@ type DomainsTransferGetListResponse struct {
 		Type                  string   `xml:"Type,attr"`
 		Paging                Paging
 		TransferGetListResult struct {
-			XMLName   xml.Name `xml:"" json:"-"`
+			XMLName   xml.Name `xml:"TransferGetListResult" json:"-"`
 			Transfers []struct {
 				ID                int    `xml:"ID,attr"`
 				DomainName        string `xml:"DomainName,attr"`

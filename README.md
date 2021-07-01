@@ -115,11 +115,11 @@ clientIP: 127.0.0.1
     * [x] [users.address.setDefault](https://www.namecheap.com/support/api/methods/users-address/set-default/)
     * [x] [users.address.update](https://www.namecheap.com/support/api/methods/users-address/update/)
 * Whoisguard
-    * [ ] [whoisguard.changeemailaddress](https://www.namecheap.com/support/api/methods/whoisguard/change-email-address/)
-    * [ ] [whoisguard.enable](https://www.namecheap.com/support/api/methods/whoisguard/enable/)
-    * [ ] [whoisguard.disable](https://www.namecheap.com/support/api/methods/whoisguard/disable/)
-    * [ ] [whoisguard.getList](https://www.namecheap.com/support/api/methods/whoisguard/getlist/)
-    * [ ] [whoisguard.renew](https://www.namecheap.com/support/api/methods/whoisguard/renew/)
+    * [x] [whoisguard.changeemailaddress](https://www.namecheap.com/support/api/methods/whoisguard/change-email-address/)
+    * [x] [whoisguard.enable](https://www.namecheap.com/support/api/methods/whoisguard/enable/)
+    * [x] [whoisguard.disable](https://www.namecheap.com/support/api/methods/whoisguard/disable/)
+    * [x] [whoisguard.getList](https://www.namecheap.com/support/api/methods/whoisguard/getlist/)
+    * [x] [whoisguard.renew](https://www.namecheap.com/support/api/methods/whoisguard/renew/)
 
 ## Note
 I have not tested all the live responses returned from the API. There might be some wrong ones.

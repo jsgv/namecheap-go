@@ -72,6 +72,7 @@ func init() {
 	addCommand(rootCmd, newCmdDomains)
 	addCommand(rootCmd, newCmdSSL)
 	addCommand(rootCmd, newCmdUsers)
+	addCommand(rootCmd, newCmdWhoisguard)
 	addCommand(rootCmd, newCmdVersion)
 }
 

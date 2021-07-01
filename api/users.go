@@ -23,7 +23,7 @@ type UsersGetPricingResponse struct {
 						XMLName xml.Name `xml:"" json:"-"`
 						Name    string   `xml:"Name,attr"`
 						Price   []struct {
-							XMLName                   xml.Name `xml:"" json:"-"`
+							XMLName                   xml.Name `xml:"Price" json:"-"`
 							Duration                  int      `xml:"Duration,attr"`
 							DurationType              string   `xml:"DurationType,attr"`
 							Price                     string   `xml:"Price,attr"`
@@ -73,7 +73,7 @@ type UsersGetBalancesResponse struct {
 		XMLName               xml.Name `xml:"CommandResponse" json:"-"`
 		Type                  string   `xml:"Type,attr"`
 		UserGetBalancesResult struct {
-			XMLName                   xml.Name `xml:"" json:"-"`
+			XMLName                   xml.Name `xml:"UserGetBalancesResult" json:"-"`
 			Currency                  string   `xml:"Currency,attr"`
 			AvailableBalance          string   `xml:"AvailableBalance,attr"`
 			AccountBalance            string   `xml:"AccountBalance,attr"`
@@ -100,7 +100,7 @@ type UsersChangePasswordResponse struct {
 		XMLName                  xml.Name `xml:"CommandResponse" json:"-"`
 		Type                     string   `xml:"Type,attr"`
 		UserChangePasswordResult struct {
-			XMLName xml.Name `xml:"" json:"-"`
+			XMLName xml.Name `xml:"UserChangePasswordResult" json:"-"`
 			Success bool     `xml:"Success,attr" json:",omitempty"`
 			UserId  int      `xml:"UserId,attr" json:",omitempty"`
 		}
@@ -130,7 +130,7 @@ type UsersUpdateResponse struct {
 		XMLName          xml.Name `xml:"CommandResponse" json:"-"`
 		Type             string   `xml:"Type,attr"`
 		UserUpdateResult struct {
-			XMLName xml.Name `xml:"" json:"-"`
+			XMLName xml.Name `xml:"UserUpdateResult" json:"-"`
 			Success bool     `xml:"Success,attr"`
 			UserId  int      `xml:"UserId,attr"`
 		}
@@ -172,7 +172,7 @@ type UsersCreateAddFundsRequestResponse struct {
 		XMLName                     xml.Name `xml:"CommandResponse" json:"-"`
 		Type                        string   `xml:"Type,attr" json:",omitempty"`
 		Createaddfundsrequestresult struct {
-			XMLName     xml.Name `xml:"" json:"-"`
+			XMLName     xml.Name `xml:"Createaddfundsrequestresult" json:"-"`
 			TokenID     string   `xml:"TokenID,attr" json:",omitempty"`
 			ReturnURL   string   `xml:"ReturnURL,attr" json:",omitempty"`
 			RedirectURL string   `xml:"RedirectURL,attr" json:",omitempty"`
@@ -205,7 +205,7 @@ type UsersGetAddFundsStatusResponse struct {
 		XMLName                 xml.Name `xml:"CommandResponse" json:"-"`
 		Type                    string   `xml:"Type,attr"`
 		GetAddFundsStatusResult struct {
-			XMLName       xml.Name `xml:"" json:"-"`
+			XMLName       xml.Name `xml:"GetAddFundsStatusResult" json:"-"`
 			TransactionId int      `xml:"TransactionId,attr" json:",omitempty"`
 			Amount        int      `xml:"Amount,attr" json:",omitempty"`
 			Status        string   `xml:"Status,attr" json:",omitempty"`
